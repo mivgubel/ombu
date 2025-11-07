@@ -72,7 +72,7 @@ contract OmbuAddMemberTest is Test {
         assertTrue(exists, "Expected member to exist");
     }
 
-    function testIsGroupMemberFalse() public view{
+    function testIsGroupMemberFalse() public view {
         uint256 groupId = 0;
         uint256 identityCommitment = 999999;
         bool exists = ombu.isGroupMember(groupId, identityCommitment);

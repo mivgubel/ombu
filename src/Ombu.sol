@@ -79,6 +79,17 @@ contract Ombu {
 
     //@note para actualizar el admin del grupo hay que llamar a la funcion de semaphore directamente primero updateGroupAdmin por el admin
     // del grupo y despues el nuevo admin debe llamar a acceptGroupAdmin para aceptar el rol.
+    /// @notice Initiates a group admin update in Semaphore. Current group admin must call this.
+    /// @dev Wraps Semaphore's updateGroupAdmin. The new admin must later call acceptGroupAdmin.
+    function changeGroupAdmin(uint256 _groupId, address _newAdmin) external {
+        // Forward to Semaphore. Access control is enforced by Semaphore itself (caller must be current admin).
+        semaphore.updateGroupAdmin(_groupId, _newAdmin);
+    }
+
+    function acceptGroupAdmin(uint256 _groupId) external {
+        // call semaphore to accept the group admin role.
+        semaphore.acceptGroupAdmin(_groupId);
+    }
 
     /****** Functions to Manage Groups *****/
 
