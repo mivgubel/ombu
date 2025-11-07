@@ -111,5 +111,5 @@ contract Ombu {
         admin = _newAdmin;
         emit change_Admin(_newAdmin);
     }
-    // function to check if an identity commitment is member of a group.
+    //@note function to check if an identity commitment is member of a group.
 }
