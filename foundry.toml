@@ -1,0 +1,9 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+[rpc_endpoints]
+arbitrum_sepolia = "https://arb-sepolia.g.alchemy.com/v2/Olz-F520OixthyZ2yZTx6Uf_r0EYqZ_8"
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

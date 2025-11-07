@@ -1,0 +1,37 @@
+<mxfile host="65bd71144e">
+    <diagram id="2zHaJy6puu0eBn19TZyT" name="Page-1">
+        <mxGraphModel dx="1307" dy="406" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Task:&lt;/h1&gt;&lt;div&gt;Crear un contrato que guarde la informacion de Ombu y permite interactuar con semaphore para crear grupos, agregar y eliminar usuarios de estos grupos para que puedan interactuar con la plataforma.&lt;/div&gt;" style="text;html=1;overflow=hidden;rounded=0;strokeColor=none;spacingTop=2;spacingRight=2;spacingLeft=2;spacingBottom=2;whiteSpace=wrap;glass=0;shadow=0;" vertex="1" parent="1">
+                    <mxGeometry x="117" y="17" width="372" height="109" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="3" target="4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="3" target="6">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Ombu SC" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="69" y="164" width="230" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="1.- Admin functions:&lt;div&gt;Crear grupo&lt;/div&gt;&lt;div&gt;agregar&amp;nbsp;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="3">
+                    <mxGeometry x="1" y="24" width="123" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="2.- Proof Verification" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="3">
+                    <mxGeometry y="69" width="126" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="mappings para guardar data needed" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="3">
+                    <mxGeometry x="-2" y="105" width="212" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Semaphore" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="366" y="164" width="200" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Backend / FrontEnd" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-194" y="164" width="200" height="200" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@semaphore-protocol/contracts": "^4.14.0"
+  }
+}
