@@ -112,4 +112,13 @@ contract Ombu {
         emit change_Admin(_newAdmin);
     }
     //@note function to check if an identity commitment is member of a group.
+    /// @notice Returns true if the identity commitment exists in the Semaphore group.
+    /// @param _groupId The group id in Semaphore.
+    /// @param _identityCommitment The identity commitment to check.
+    /// @return True if the member exists, false otherwise.
+    function isGroupMember(uint256 _groupId, uint256 _identityCommitment) external view returns (bool) {
+        // The deployed Semaphore contract also exposes the ISemaphoreGroups view.
+        // Cast to ISemaphoreGroups to call hasMember.
+        return ISemaphoreGroups(address(semaphore)).hasMember(_groupId, _identityCommitment);
+    }
 }
