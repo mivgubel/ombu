@@ -26,9 +26,17 @@ contract Ombu {
     // mapping to save posts for group.
     mapping(uint256 groupId => mapping(uint256 ombuPostId => OmbuPost post)) public groupPosts;
 
-    //mapping para linkear posts y subposts.
+    //mapping to save subPost for each Post.
     mapping(uint256 groupId => mapping(uint256 ombuPostId => mapping(uint256 subPostId => OmbuPost subPost))) public
         postSubPosts;
+
+    // mapping to save the user's vote in any main post.
+    mapping(address user => mapping(uint256 groupId => mapping(uint256 postId => bool hasVoted))) public userPostVotes;
+    // mapping to save the user's vote in any sub post.
+    mapping(
+        address user
+            => mapping(uint256 groupId => mapping(uint256 postId => mapping(uint256 subPostId => bool hasVoted)))
+    ) public userSubPostVotes;
 
     //Only Adming Guard.
     modifier onlyAdmin() {
@@ -67,6 +75,9 @@ contract Ombu {
     // function to create subPosts, attached to a main post.
     //@note confirmar si el autor debe ser msg.sender o un identityCommitment.
     function createSubPost(uint256 _groupId, uint256 _mainPostId, string calldata _content) external {
+        OmbuPost storage post = groupPosts[_groupId][_mainPostId];
+        require(post.author != address(0), "Main Post does not exist");
+
         OmbuPost memory newSubPost = OmbuPost({
             author: msg.sender, content: _content, timestamp: uint32(block.timestamp), upvotes: 0, downvotes: 0
         });
@@ -74,7 +85,32 @@ contract Ombu {
         postSubPosts[_groupId][_mainPostId][subPostCounter] = newSubPost;
     }
 
-    //@note falta crear function to create subposts, function to add upvotes and downvotes.
+    // el usuario solo debe poder votar una vez por post o subpost, ya sea a favor o en contra.
+    // Function to vote on a main post.
+    function voteOnPost(uint256 _groupId, uint256 _postId, bool _isUpvote) external {
+        OmbuPost storage post = groupPosts[_groupId][_postId];
+        require(post.author != address(0), "Post does not exist");
+
+        bool hasVoted = userPostVotes[msg.sender][_groupId][_postId];
+        require(!hasVoted, "User has already voted on this post");
+
+        if (_isUpvote) {
+            post.upvotes += 1;
+        } else {
+            post.downvotes += 1;
+        }
+        userPostVotes[msg.sender][_groupId][_postId] = true;
+    }
+
+    // Function to vote on a sub post.
+    function voteOnSubPost(uint256 _groupId, uint256 _postId, uint256 _subPostId, bool _isUpvote) external {
+        /* OmbuPost storage subPost = postSubPosts[_groupId][_postId][_subPostId];
+        require(subPost.author != address(0), "SubPost does not exist");
+
+        bool hasVoted = userSubPostVotes[msg.sender][_groupId][_postId][_subPostId];
+        require(!hasVoted, "User has already voted on this subpost"); */
+    }
+
     // function to edit a post and also a function to edit a subpost.
 
     //@note para actualizar el admin del grupo hay que llamar a la funcion de semaphore directamente primero updateGroupAdmin por el admin

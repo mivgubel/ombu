@@ -78,6 +78,10 @@ contract OmbuTest is Test {
         uint256 parentPostId = 1;
         string memory content = "Ombu SubPost!";
 
+        // first create a main post to have a parentPostId
+        string memory postContent = "Hello, Ombu!";
+        ombu.createMainPost(groupId, postContent);
+
         ombu.createSubPost(groupId, parentPostId, content);
         (address author, string memory _content,, uint32 upvotes, uint32 downvotes) =
             ombu.postSubPosts(groupId, parentPostId, 1);
@@ -89,10 +93,48 @@ contract OmbuTest is Test {
     }
 
     // function to test the upvotes mechanism (add and remove a upvote).
-    function test_Upvote() public {}
+    function test_MainPost_Upvote_DownVote() public {
+        // Test adding an upvote in a main post.
+        uint256 groupId = 0;
+        uint256 postId = 1;
+        bool isUpvote = true;
+        string memory content = "Hello, Ombu!";
+
+        ombu.createMainPost(groupId, content);
+        ombu.voteOnPost(groupId, postId, isUpvote);
+
+        (bool hasVoted) = ombu.userPostVotes(address(this), groupId, postId);
+        assertEq(hasVoted, true, "Upvote not registered");
+
+        (,,, uint32 upvotes, uint32 downvotes) = ombu.groupPosts(groupId, 1);
+        assertEq(upvotes, 1, "Upvote count incorrect");
+        assertEq(downvotes, 0, "Downvote count incorrect");
+
+        vm.expectRevert("User has already voted on this post");
+        ombu.voteOnPost(groupId, postId, isUpvote);
+        // Testing adding an upvote in a subPost.
+    }
 
     // function to test the downvotes mechanism (add and remove a downvote).
-    function test_Downvote() public {}
+    function test_subPost_Down_Up_Vote() public {
+        // Test adding a downvote in a sub post.
+        uint256 groupId = 0;
+        uint256 postId = 1;
+        uint256 subPostId = 1;
+        bool isUpvote = false;
+
+        ombu.voteOnSubPost(groupId, postId, subPostId, isUpvote);
+
+        (bool hasVoted) = ombu.userSubPostVotes(address(this), groupId, postId, subPostId);
+        assertEq(hasVoted, true, "Downvote not registered");
+
+        (,,, uint32 upvotes, uint32 downvotes) = ombu.postSubPosts(groupId, postId, subPostId);
+        assertEq(upvotes, 0, "Upvote count incorrect");
+        assertEq(downvotes, 1, "Downvote count incorrect");
+
+        vm.expectRevert("User has already voted on this subpost");
+        ombu.voteOnSubPost(groupId, postId, subPostId, isUpvote);
+    }
 
     // function to test the edit of a post.
     function test_EditPost() public {}
